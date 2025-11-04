@@ -81,8 +81,8 @@ export function TattooCard({ tattoo, artistName, artistLocation, onRequireAuth }
         priority={false}
       />
       
-      {/* Intentional overlay with refined gradient */}
-      <div className={`absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent transition-opacity duration-[400ms] ease-out ${showOverlay ? 'opacity-100' : 'opacity-0'}`}>
+      {/* Intentional overlay with refined gradient - always visible on mobile, hover-controlled on desktop */}
+      <div className={`absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-100 transition-opacity duration-[400ms] ease-out ${showOverlay ? 'sm:opacity-100' : 'sm:opacity-0'}`}>
         <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6 space-y-3">
           {/* Tattoo description with refined typography */}
           {tattoo.description && (
@@ -162,7 +162,7 @@ export function TattooCard({ tattoo, artistName, artistLocation, onRequireAuth }
         </div>
       </div>
 
-      {/* Refined like indicator */}
+      {/* Refined like indicator - only on desktop when overlay is hidden */}
       {isLiked && user && !showOverlay && (
         <button
           onClick={(e) => {
@@ -170,7 +170,7 @@ export function TattooCard({ tattoo, artistName, artistLocation, onRequireAuth }
             handleLike();
           }}
           disabled={isToggling}
-          className={`absolute top-4 right-4 rounded-full bg-white p-2.5 shadow-lg transition-all duration-200 hover:scale-105 active:scale-95 touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center ${isToggling ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`hidden sm:flex absolute top-4 right-4 rounded-full bg-white p-2.5 shadow-lg transition-all duration-200 hover:scale-105 active:scale-95 touch-manipulation min-h-[44px] min-w-[44px] items-center justify-center ${isToggling ? 'opacity-50 cursor-not-allowed' : ''}`}
           aria-label="Unlike this tattoo"
         >
           <svg

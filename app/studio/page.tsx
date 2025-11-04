@@ -1,16 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { Gallery } from '@/components/Gallery';
-import { TopArtists } from '@/components/TopArtists';
 import { useAuth } from '@/contexts/AuthContext';
 import { AuthModal } from '@/components/AuthModal';
+import { ArtistDashboard } from '@/components/ArtistDashboard';
 import Link from 'next/link';
 
-export default function Home() {
-  const [activeTab, setActiveTab] = useState<'gallery' | 'top-artists'>('gallery');
-  const [showAuthModal, setShowAuthModal] = useState(false);
+export default function StudioPage() {
   const { user, loading, signOut } = useAuth();
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   if (loading) {
     return (
@@ -28,24 +26,32 @@ export default function Home() {
       <div className="min-h-screen bg-white">
         <header className="border-b border-black/10 bg-white">
           <div className="container mx-auto px-6 py-8">
-            <h1 className="text-2xl font-light tracking-tight text-black">
-              Tattoo Discovery
-            </h1>
+            <div className="flex items-center justify-between">
+              <h1 className="text-xl font-light tracking-tight text-black uppercase tracking-wider">
+                Artist Studio
+              </h1>
+              <Link
+                href="/"
+                className="text-xs text-black/40 hover:text-black transition-colors uppercase tracking-wider"
+              >
+                ← Back to Gallery
+              </Link>
+            </div>
           </div>
         </header>
         <main className="container mx-auto px-6 py-20">
           <div className="mx-auto max-w-lg text-center">
-            <h2 className="mb-6 text-5xl font-light tracking-tight text-black leading-tight">
-              Welcome to Tattoo Discovery
+            <h2 className="mb-6 text-5xl font-light tracking-tight text-black leading-tight uppercase tracking-wider">
+              Artist Studio
             </h2>
-            <p className="mb-12 text-base text-black/60 leading-relaxed tracking-wide">
-              Sign in to explore curated tattoos from Dutch artists and discover your perfect match.
+            <p className="mb-12 text-sm text-black/60 leading-relaxed tracking-wide">
+              Sign in to upload and manage your tattoos.
             </p>
             <button
               onClick={() => setShowAuthModal(true)}
-              className="rounded-full bg-black px-8 py-4 text-sm font-medium text-white transition-all hover:bg-black/90 tracking-wide uppercase letter-spacing-wider"
+              className="rounded-full bg-black px-8 py-4 text-xs font-medium text-white transition-all hover:bg-black/90 tracking-wide uppercase"
             >
-              Get Started
+              Sign In
             </button>
           </div>
         </main>
@@ -62,7 +68,7 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-xl font-light tracking-tight text-black uppercase tracking-wider">
-                Tattoo Discovery
+                Artist Studio
               </h1>
               {user.displayName && (
                 <p className="mt-1 text-xs text-black/50 tracking-wide">
@@ -71,33 +77,11 @@ export default function Home() {
               )}
             </div>
             <div className="flex items-center gap-6">
-              <nav className="flex gap-1">
-                <button
-                  onClick={() => setActiveTab('gallery')}
-                  className={`px-4 py-2 text-xs font-medium transition-all uppercase tracking-wider ${
-                    activeTab === 'gallery'
-                      ? 'text-black border-b-2 border-black'
-                      : 'text-black/40 hover:text-black'
-                  }`}
-                >
-                  Gallery
-                </button>
-                <button
-                  onClick={() => setActiveTab('top-artists')}
-                  className={`px-4 py-2 text-xs font-medium transition-all uppercase tracking-wider ${
-                    activeTab === 'top-artists'
-                      ? 'text-black border-b-2 border-black'
-                      : 'text-black/40 hover:text-black'
-                  }`}
-                >
-                  Top 5 Artists
-                </button>
-              </nav>
               <Link
-                href="/studio"
+                href="/"
                 className="text-xs text-black/40 hover:text-black transition-colors uppercase tracking-wider"
               >
-                For artists
+                ← Back to Gallery
               </Link>
               <button
                 onClick={signOut}
@@ -112,23 +96,20 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="container mx-auto px-6 py-16">
-        {activeTab === 'gallery' ? (
-          <Gallery />
-        ) : (
-          <div className="mx-auto max-w-4xl">
-            <TopArtists />
-          </div>
-        )}
+        <ArtistDashboard />
       </main>
 
       {/* Footer */}
       <footer className="border-t border-black/10 bg-white">
         <div className="container mx-auto px-6 py-12 text-center">
           <p className="text-xs text-black/40 uppercase tracking-wider">
-            Discover tattoo artists in the Netherlands
+            <Link href="/" className="hover:text-black transition-colors">
+              Discover tattoo artists in the Netherlands
+            </Link>
           </p>
         </div>
       </footer>
     </div>
   );
 }
+

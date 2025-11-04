@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Artists collection
+    match /artists/{artistId} {
+      allow read: if request.auth != null; // Authenticated users can read
+      // Users can create their own artist profile (userId must match their auth uid)
+      allow create: if request.auth != null && 
+                        request.resource.data.userId == request.auth.uid;
+      // Users can update their own artist profile
+      allow update: if request.auth != null && 
+                        resource.data.userId == request.auth.uid;
+      allow delete: if false; // Disable deletion for now
+    }
+    
+    // Tattoos collection
+    match /tattoos/{tattooId} {
+      allow read: if request.auth != null; // Authenticated users can read
+      // Artists can create tattoos - verify they own the artist profile
+      allow create: if request.auth != null && 
+                       request.resource.data.artistId != null &&
+                       exists(/databases/$(database)/documents/artists/$(request.resource.data.artistId)) &&
+                       get(/databases/$(database)/documents/artists/$(request.resource.data.artistId)).data.userId == request.auth.uid;
+      // Artists can update their own tattoos
+      allow update: if request.auth != null && 
+                       resource.data.artistId != null &&
+                       exists(/databases/$(database)/documents/artists/$(resource.data.artistId)) &&
+                       get(/databases/$(database)/documents/artists/$(resource.data.artistId)).data.userId == request.auth.uid;
+      // Artists can delete their own tattoos
+      allow delete: if request.auth != null && 
+                       resource.data.artistId != null &&
+                       exists(/databases/$(database)/documents/artists/$(resource.data.artistId)) &&
+                       get(/databases/$(database)/documents/artists/$(resource.data.artistId)).data.userId == request.auth.uid;
+    }
+    
+    // Likes collection - users can only read/write their own likes
+    match /likes/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}
+

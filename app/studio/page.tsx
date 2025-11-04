@@ -25,31 +25,31 @@ export default function StudioPage() {
     return (
       <div className="min-h-screen bg-white">
         <header className="border-b border-black/10 bg-white">
-          <div className="container mx-auto px-6 py-8">
-            <div className="flex items-center justify-between">
-              <h1 className="text-xl font-light tracking-tight text-black uppercase tracking-wider">
+          <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <h1 className="text-lg sm:text-xl font-light tracking-tight text-black uppercase tracking-wider">
                 Artist Studio
               </h1>
               <Link
                 href="/"
-                className="text-xs text-black/40 hover:text-black transition-colors uppercase tracking-wider"
+                className="text-xs text-black/40 hover:text-black transition-colors uppercase tracking-wider min-h-[44px] flex items-center"
               >
                 ← Back to Gallery
               </Link>
             </div>
           </div>
         </header>
-        <main className="container mx-auto px-6 py-20">
+        <main className="container mx-auto px-4 sm:px-6 py-12 sm:py-20">
           <div className="mx-auto max-w-lg text-center">
-            <h2 className="mb-6 text-5xl font-light tracking-tight text-black leading-tight uppercase tracking-wider">
+            <h2 className="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-black leading-tight uppercase tracking-wider px-4">
               Artist Studio
             </h2>
-            <p className="mb-12 text-sm text-black/60 leading-relaxed tracking-wide">
+            <p className="mb-8 sm:mb-12 text-sm text-black/60 leading-relaxed tracking-wide px-4">
               Sign in to upload and manage your tattoos.
             </p>
             <button
               onClick={() => setShowAuthModal(true)}
-              className="rounded-full bg-black px-8 py-4 text-xs font-medium text-white transition-all hover:bg-black/90 tracking-wide uppercase"
+              className="rounded-full bg-black px-6 sm:px-8 py-3 sm:py-4 text-xs font-medium text-white transition-all hover:bg-black/90 active:bg-black/80 tracking-wide uppercase min-h-[44px] touch-manipulation"
             >
               Sign In
             </button>
@@ -64,10 +64,10 @@ export default function StudioPage() {
     <div className="min-h-screen bg-white">
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-black/10 bg-white/95 backdrop-blur-sm">
-        <div className="container mx-auto px-6 py-6">
-          <div className="flex items-center justify-between">
+        <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h1 className="text-xl font-light tracking-tight text-black uppercase tracking-wider">
+              <h1 className="text-lg sm:text-xl font-light tracking-tight text-black uppercase tracking-wider">
                 Artist Studio
               </h1>
               {user.displayName && (
@@ -76,16 +76,16 @@ export default function StudioPage() {
                 </p>
               )}
             </div>
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3 sm:gap-6">
               <Link
                 href="/"
-                className="text-xs text-black/40 hover:text-black transition-colors uppercase tracking-wider"
+                className="text-xs text-black/40 hover:text-black transition-colors uppercase tracking-wider min-h-[44px] flex items-center"
               >
                 ← Back to Gallery
               </Link>
               <button
                 onClick={signOut}
-                className="rounded-full border border-black px-4 py-2 text-xs font-medium text-black transition-all hover:bg-black hover:text-white uppercase tracking-wider"
+                className="rounded-full border border-black px-4 py-2.5 text-xs font-medium text-black transition-all hover:bg-black hover:text-white active:bg-black/90 active:text-white uppercase tracking-wider min-h-[44px] touch-manipulation"
               >
                 Sign Out
               </button>
@@ -95,13 +95,13 @@ export default function StudioPage() {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-6 py-16">
+      <main className="container mx-auto px-4 sm:px-6 py-8 sm:py-16">
         <ArtistDashboard />
       </main>
 
       {/* Footer */}
       <footer className="border-t border-black/10 bg-white">
-        <div className="container mx-auto px-6 py-12 text-center">
+        <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12 text-center">
           <p className="text-xs text-black/40 uppercase tracking-wider">
             <Link href="/" className="hover:text-black transition-colors">
               Discover tattoo artists in the Netherlands

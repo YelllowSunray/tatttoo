@@ -47,13 +47,13 @@ export function TopArtists({ onRefresh }: TopArtistsProps) {
 
   if (!showResults && topArtists.length === 0 && !loading) {
     return (
-      <div className="border border-black/10 bg-white p-12 text-center">
+      <div className="border border-black/10 bg-white p-6 sm:p-12 text-center">
         <p className="mb-6 text-sm text-black/60 tracking-wide">
           Start liking tattoos to discover your Top 5 artists
         </p>
         <button
           onClick={loadTopArtists}
-          className="rounded-full border border-black px-6 py-3 text-xs font-medium text-black transition-all hover:bg-black hover:text-white uppercase tracking-wider"
+          className="rounded-full border border-black px-6 py-3 text-xs font-medium text-black transition-all hover:bg-black hover:text-white active:bg-black/90 active:text-white uppercase tracking-wider min-h-[44px] touch-manipulation"
         >
           Refresh Results
         </button>
@@ -63,7 +63,7 @@ export function TopArtists({ onRefresh }: TopArtistsProps) {
 
   if (loading) {
     return (
-      <div className="border border-black/10 bg-white p-12 text-center">
+      <div className="border border-black/10 bg-white p-6 sm:p-12 text-center">
         <div className="mb-4 h-8 w-8 animate-spin rounded-full border-2 border-black border-t-transparent mx-auto"></div>
         <p className="text-black/60 text-xs tracking-wide">Calculating your matches...</p>
       </div>
@@ -72,7 +72,7 @@ export function TopArtists({ onRefresh }: TopArtistsProps) {
 
   if (topArtists.length === 0) {
     return (
-      <div className="border border-black/10 bg-white p-12 text-center">
+      <div className="border border-black/10 bg-white p-6 sm:p-12 text-center">
         <p className="text-black/60 text-sm tracking-wide">
           Like some tattoos to see your personalized recommendations
         </p>
@@ -81,10 +81,10 @@ export function TopArtists({ onRefresh }: TopArtistsProps) {
   }
 
   return (
-    <div className="border border-black/10 bg-white p-12">
-      <div className="mb-12 flex items-center justify-between">
+    <div className="border border-black/10 bg-white p-4 sm:p-8 md:p-12">
+      <div className="mb-8 sm:mb-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h2 className="mb-2 text-3xl font-light tracking-tight text-black uppercase tracking-wider">
+          <h2 className="mb-2 text-2xl sm:text-3xl font-light tracking-tight text-black uppercase tracking-wider">
             Your Top 5 Artists
           </h2>
           <p className="text-xs text-black/50 tracking-wide">
@@ -93,7 +93,7 @@ export function TopArtists({ onRefresh }: TopArtistsProps) {
         </div>
         <button
           onClick={loadTopArtists}
-          className="rounded-full border border-black px-4 py-2 text-xs font-medium text-black transition-all hover:bg-black hover:text-white uppercase tracking-wider"
+          className="rounded-full border border-black px-4 py-2.5 text-xs font-medium text-black transition-all hover:bg-black hover:text-white active:bg-black/90 active:text-white uppercase tracking-wider min-h-[44px] touch-manipulation self-start sm:self-auto"
         >
           Refresh
         </button>
@@ -107,14 +107,14 @@ export function TopArtists({ onRefresh }: TopArtistsProps) {
           return (
             <div
               key={score.artistId}
-              className="flex items-center gap-6 border-b border-black/10 pb-6 transition-all last:border-0 last:pb-0 hover:border-black/20"
+              className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 border-b border-black/10 pb-6 transition-all last:border-0 last:pb-0 hover:border-black/20"
             >
               <div className="flex h-12 w-12 shrink-0 items-center justify-center border border-black text-sm font-light text-black">
                 {index + 1}
               </div>
               
               <div className="flex-1">
-                <h3 className="mb-1 text-xl font-light tracking-tight text-black">
+                <h3 className="mb-1 text-lg sm:text-xl font-light tracking-tight text-black">
                   {artist.name}
                 </h3>
                 <p className="mb-2 text-xs text-black/50 uppercase tracking-wider">
@@ -125,7 +125,7 @@ export function TopArtists({ onRefresh }: TopArtistsProps) {
                     {artist.bio}
                   </p>
                 )}
-                <div className="flex items-center gap-6">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
                   {artist.instagram && (
                     <a
                       href={artist.instagram}

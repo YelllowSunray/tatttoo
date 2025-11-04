@@ -145,9 +145,10 @@ export function TattooUploadForm({ onSuccess, onCancel }: TattooUploadFormProps)
           ref={fileInputRef}
           type="file"
           accept="image/*"
+          capture="environment"
           onChange={handleFileChange}
           required
-          className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-black file:mr-4 file:rounded-full file:border-0 file:bg-black file:px-4 file:py-2 file:text-xs file:font-medium file:text-white file:uppercase file:tracking-wider hover:file:bg-black/90 focus:border-black focus:outline-none transition-colors"
+          className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-base text-black file:mr-4 file:rounded-full file:border-0 file:bg-black file:px-4 file:py-2.5 file:text-xs file:font-medium file:text-white file:uppercase file:tracking-wider file:min-h-[44px] hover:file:bg-black/90 active:file:bg-black/80 focus:border-black focus:outline-none transition-colors touch-manipulation"
         />
         {preview && (
           <div className="mt-6 border border-black/10">
@@ -170,7 +171,7 @@ export function TattooUploadForm({ onSuccess, onCancel }: TattooUploadFormProps)
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           rows={4}
           required
-          className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors resize-none"
+          className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-base text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors resize-none"
           placeholder="Describe this tattoo..."
         />
       </div>
@@ -182,12 +183,13 @@ export function TattooUploadForm({ onSuccess, onCancel }: TattooUploadFormProps)
         <input
           id="price"
           type="number"
+          inputMode="decimal"
           step="0.01"
           min="0"
           value={formData.price}
           onChange={(e) => setFormData({ ...formData, price: e.target.value })}
           required
-          className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
+          className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-base text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
           placeholder="0.00"
         />
       </div>
@@ -201,7 +203,7 @@ export function TattooUploadForm({ onSuccess, onCancel }: TattooUploadFormProps)
           type="text"
           value={formData.location}
           onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-          className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
+          className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-base text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
           placeholder="City, Country (optional)"
         />
         <p className="mt-2 text-xs text-black/40">
@@ -209,7 +211,7 @@ export function TattooUploadForm({ onSuccess, onCancel }: TattooUploadFormProps)
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
         <div>
           <label htmlFor="style" className="mb-3 block text-xs font-medium text-black/60 uppercase tracking-wider">
             Style
@@ -247,7 +249,7 @@ export function TattooUploadForm({ onSuccess, onCancel }: TattooUploadFormProps)
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
         <div>
           <label htmlFor="size" className="mb-3 block text-xs font-medium text-black/60 uppercase tracking-wider">
             Size <span className="text-black">*</span>
@@ -296,11 +298,11 @@ export function TattooUploadForm({ onSuccess, onCancel }: TattooUploadFormProps)
         </div>
       )}
 
-      <div className="flex gap-4 pt-4">
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
         <button
           type="submit"
           disabled={loading || !selectedFile || !formData.description.trim() || !formData.price || !formData.size.trim()}
-          className="flex-1 rounded-full bg-black px-6 py-4 text-xs font-medium text-white transition-all hover:bg-black/90 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider"
+          className="flex-1 rounded-full bg-black px-6 py-3 sm:py-4 text-xs font-medium text-white transition-all hover:bg-black/90 active:bg-black/80 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider min-h-[44px] touch-manipulation"
         >
           {loading ? 'Uploading...' : 'Upload Tattoo'}
         </button>
@@ -309,7 +311,7 @@ export function TattooUploadForm({ onSuccess, onCancel }: TattooUploadFormProps)
             type="button"
             onClick={onCancel}
             disabled={loading}
-            className="rounded-full border border-black px-6 py-4 text-xs font-medium text-black transition-all hover:bg-black hover:text-white disabled:opacity-50 uppercase tracking-wider"
+            className="rounded-full border border-black px-6 py-3 sm:py-4 text-xs font-medium text-black transition-all hover:bg-black hover:text-white active:bg-black/90 active:text-white disabled:opacity-50 uppercase tracking-wider min-h-[44px] touch-manipulation"
           >
             Cancel
           </button>

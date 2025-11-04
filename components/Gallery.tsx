@@ -58,7 +58,7 @@ export function Gallery() {
           <p className="text-black/60 mb-6 text-sm">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="rounded-full border border-black px-6 py-3 text-xs font-medium text-black transition-all hover:bg-black hover:text-white uppercase tracking-wider"
+            className="rounded-full border border-black px-6 py-3 text-xs font-medium text-black transition-all hover:bg-black hover:text-white active:bg-black/90 active:text-white uppercase tracking-wider min-h-[44px] touch-manipulation"
           >
             Retry
           </button>
@@ -79,18 +79,18 @@ export function Gallery() {
   }
 
   return (
-    <div className="container mx-auto px-6 py-12">
-      <div className="mb-16 text-center">
-        <h1 className="mb-4 text-4xl font-light tracking-tight text-black md:text-5xl leading-tight">
+    <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
+      <div className="mb-8 sm:mb-16 text-center">
+        <h1 className="mb-3 sm:mb-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-black leading-tight px-4">
           Discover Dutch Tattoo Artistry
         </h1>
-        <p className="mx-auto max-w-xl text-sm text-black/60 leading-relaxed tracking-wide">
+        <p className="mx-auto max-w-xl text-xs sm:text-sm text-black/60 leading-relaxed tracking-wide px-4">
           Explore curated tattoos from talented artists across the Netherlands. 
           Like the ones that resonate with you, and we'll find your perfect match.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-2 sm:gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {tattoos.map((tattoo) => {
           const artist = artists.get(tattoo.artistId);
           return (

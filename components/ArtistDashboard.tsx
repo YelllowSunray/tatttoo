@@ -116,15 +116,15 @@ export function ArtistDashboard() {
 
   if (showProfileForm || !artist) {
     return (
-      <div className="mx-auto max-w-2xl border border-black/10 bg-white p-12">
-        <h2 className="mb-6 text-3xl font-light tracking-tight text-black uppercase tracking-wider">
+      <div className="mx-auto max-w-2xl border border-black/10 bg-white p-4 sm:p-8 md:p-12">
+        <h2 className="mb-4 sm:mb-6 text-2xl sm:text-3xl font-light tracking-tight text-black uppercase tracking-wider">
           Set Up Your Artist Profile
         </h2>
-        <p className="mb-12 text-sm text-black/60 tracking-wide">
+        <p className="mb-8 sm:mb-12 text-sm text-black/60 tracking-wide">
           Create your artist profile to start uploading tattoos.
         </p>
 
-        <form onSubmit={handleProfileSubmit} className="space-y-8">
+        <form onSubmit={handleProfileSubmit} className="space-y-6 sm:space-y-8">
           <div>
             <label htmlFor="name" className="mb-2 block text-xs font-medium text-black/60 uppercase tracking-wider">
               Artist Name <span className="text-black">*</span>
@@ -132,10 +132,11 @@ export function ArtistDashboard() {
             <input
               id="name"
               type="text"
+              autoComplete="name"
               value={profileData.name}
               onChange={(e) => setProfileData({ ...profileData, name: e.target.value })}
               required
-              className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
+              className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-base text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
             />
           </div>
 
@@ -143,15 +144,15 @@ export function ArtistDashboard() {
             <label htmlFor="location" className="mb-2 block text-xs font-medium text-black/60 uppercase tracking-wider">
               Location <span className="text-black">*</span>
             </label>
-            <input
-              id="location"
-              type="text"
-              value={profileData.location}
-              onChange={(e) => setProfileData({ ...profileData, location: e.target.value })}
-              required
-              className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
-              placeholder="Amsterdam, Netherlands"
-            />
+              <input
+                id="location"
+                type="text"
+                value={profileData.location}
+                onChange={(e) => setProfileData({ ...profileData, location: e.target.value })}
+                required
+                className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-base text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
+                placeholder="Amsterdam, Netherlands"
+              />
           </div>
 
           <div>
@@ -163,12 +164,12 @@ export function ArtistDashboard() {
               value={profileData.bio}
               onChange={(e) => setProfileData({ ...profileData, bio: e.target.value })}
               rows={4}
-              className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors resize-none"
+              className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-base text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors resize-none"
               placeholder="Tell us about your style and experience..."
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
             <div>
               <label htmlFor="instagram" className="mb-2 block text-xs font-medium text-black/60 uppercase tracking-wider">
                 Instagram
@@ -176,9 +177,10 @@ export function ArtistDashboard() {
               <input
                 id="instagram"
                 type="url"
+                inputMode="url"
                 value={profileData.instagram}
                 onChange={(e) => setProfileData({ ...profileData, instagram: e.target.value })}
-                className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
+                className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-base text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
                 placeholder="https://instagram.com/yourhandle"
               />
             </div>
@@ -190,15 +192,16 @@ export function ArtistDashboard() {
               <input
                 id="website"
                 type="url"
+                inputMode="url"
                 value={profileData.website}
                 onChange={(e) => setProfileData({ ...profileData, website: e.target.value })}
-                className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
+                className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-base text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
                 placeholder="https://yourwebsite.com"
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
             <div>
               <label htmlFor="email" className="mb-2 block text-xs font-medium text-black/60 uppercase tracking-wider">
                 Email
@@ -206,9 +209,11 @@ export function ArtistDashboard() {
               <input
                 id="email"
                 type="email"
+                inputMode="email"
+                autoComplete="email"
                 value={profileData.email}
                 onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
-                className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
+                className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-base text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
               />
             </div>
 
@@ -219,9 +224,11 @@ export function ArtistDashboard() {
               <input
                 id="phone"
                 type="tel"
+                inputMode="tel"
+                autoComplete="tel"
                 value={profileData.phone}
                 onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
-                className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
+                className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-base text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
               />
             </div>
           </div>
@@ -235,7 +242,7 @@ export function ArtistDashboard() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-full bg-black px-6 py-4 text-xs font-medium text-white transition-all hover:bg-black/90 disabled:opacity-50 uppercase tracking-wider"
+            className="w-full rounded-full bg-black px-6 py-3 sm:py-4 text-xs font-medium text-white transition-all hover:bg-black/90 active:bg-black/80 disabled:opacity-50 uppercase tracking-wider min-h-[44px] touch-manipulation"
           >
             {loading ? 'Saving...' : 'Create Profile'}
           </button>
@@ -247,23 +254,23 @@ export function ArtistDashboard() {
   return (
     <div className="mx-auto max-w-6xl space-y-12">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-black/10 pb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-black/10 pb-6">
         <div>
-          <h2 className="text-3xl font-light tracking-tight text-black uppercase tracking-wider">
+          <h2 className="text-2xl sm:text-3xl font-light tracking-tight text-black uppercase tracking-wider">
             {artist.name}
           </h2>
           <p className="mt-2 text-xs text-black/50 uppercase tracking-wider">{artist.location}</p>
         </div>
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
           <button
             onClick={() => setShowProfileForm(true)}
-            className="rounded-full border border-black px-5 py-2.5 text-xs font-medium text-black transition-all hover:bg-black hover:text-white uppercase tracking-wider"
+            className="rounded-full border border-black px-5 py-2.5 text-xs font-medium text-black transition-all hover:bg-black hover:text-white active:bg-black/90 active:text-white uppercase tracking-wider min-h-[44px] touch-manipulation"
           >
             Edit Profile
           </button>
           <button
             onClick={() => setShowUploadForm(true)}
-            className="rounded-full bg-black px-5 py-2.5 text-xs font-medium text-white transition-all hover:bg-black/90 uppercase tracking-wider"
+            className="rounded-full bg-black px-5 py-2.5 text-xs font-medium text-white transition-all hover:bg-black/90 active:bg-black/80 uppercase tracking-wider min-h-[44px] touch-manipulation"
           >
             Upload Tattoo
           </button>
@@ -278,9 +285,9 @@ export function ArtistDashboard() {
 
       {/* Upload Form Modal */}
       {showUploadForm && (
-        <div className="border border-black/10 bg-white p-12">
-          <div className="mb-8 flex items-center justify-between">
-            <h3 className="text-2xl font-light tracking-tight text-black uppercase tracking-wider">
+        <div className="border border-black/10 bg-white p-4 sm:p-8 md:p-12">
+          <div className="mb-6 sm:mb-8 flex items-center justify-between">
+            <h3 className="text-xl sm:text-2xl font-light tracking-tight text-black uppercase tracking-wider">
               Upload New Tattoo
             </h3>
             <button
@@ -304,7 +311,7 @@ export function ArtistDashboard() {
 
       {/* My Tattoos Grid */}
       <div>
-        <h3 className="mb-8 text-2xl font-light tracking-tight text-black uppercase tracking-wider">
+        <h3 className="mb-6 sm:mb-8 text-xl sm:text-2xl font-light tracking-tight text-black uppercase tracking-wider">
           My Tattoos ({tattoos.length})
         </h3>
         {tattoos.length === 0 ? (

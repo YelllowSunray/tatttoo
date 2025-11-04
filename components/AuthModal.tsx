@@ -40,17 +40,17 @@ export function AuthModal({ onClose }: AuthModalProps) {
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 overflow-y-auto"
       onClick={onClose}
     >
       <div 
-        className="w-full max-w-md border border-black/20 bg-white p-10"
+        className="w-full max-w-md border border-black/20 bg-white p-6 sm:p-8 md:p-10 my-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {onClose && (
           <button
             onClick={onClose}
-            className="mb-6 ml-auto block text-black/40 hover:text-black transition-colors"
+            className="mb-6 ml-auto block text-black/40 hover:text-black active:text-black/60 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center touch-manipulation"
             aria-label="Close"
           >
             <svg
@@ -65,7 +65,7 @@ export function AuthModal({ onClose }: AuthModalProps) {
             </svg>
           </button>
         )}
-        <h2 className="mb-8 text-3xl font-light tracking-tight text-black uppercase tracking-wider">
+        <h2 className="mb-6 sm:mb-8 text-2xl sm:text-3xl font-light tracking-tight text-black uppercase tracking-wider">
           {isSignUp ? 'Create Account' : 'Welcome Back'}
         </h2>
 
@@ -78,9 +78,10 @@ export function AuthModal({ onClose }: AuthModalProps) {
               <input
                 id="displayName"
                 type="text"
+                autoComplete="name"
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
-                className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
+                className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-base text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
                 placeholder="Your name"
               />
             </div>
@@ -90,31 +91,34 @@ export function AuthModal({ onClose }: AuthModalProps) {
             <label htmlFor="email" className="mb-2 block text-xs font-medium text-black/60 uppercase tracking-wider">
               Email
             </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
-              placeholder="your@email.com"
-            />
+              <input
+                id="email"
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-base text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
+                placeholder="your@email.com"
+              />
           </div>
 
           <div>
             <label htmlFor="password" className="mb-2 block text-xs font-medium text-black/60 uppercase tracking-wider">
               Password
             </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength={6}
-              className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
-              placeholder="••••••••"
-            />
+              <input
+                id="password"
+                type="password"
+                autoComplete={isSignUp ? "new-password" : "current-password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                minLength={6}
+                className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-base text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
+                placeholder="••••••••"
+              />
             {isSignUp && (
               <p className="mt-2 text-xs text-black/40 tracking-wide">Minimum 6 characters</p>
             )}
@@ -129,7 +133,7 @@ export function AuthModal({ onClose }: AuthModalProps) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-full bg-black px-6 py-4 text-xs font-medium text-white transition-all hover:bg-black/90 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider"
+            className="w-full rounded-full bg-black px-6 py-3 sm:py-4 text-xs font-medium text-white transition-all hover:bg-black/90 active:bg-black/80 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider min-h-[44px] touch-manipulation"
           >
             {loading ? 'Please wait...' : isSignUp ? 'Sign Up' : 'Sign In'}
           </button>

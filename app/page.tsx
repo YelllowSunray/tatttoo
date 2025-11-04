@@ -27,23 +27,23 @@ export default function Home() {
     return (
       <div className="min-h-screen bg-white">
         <header className="border-b border-black/10 bg-white">
-          <div className="container mx-auto px-6 py-8">
-            <h1 className="text-2xl font-light tracking-tight text-black">
+          <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+            <h1 className="text-xl sm:text-2xl font-light tracking-tight text-black">
               Tattoo Discovery
             </h1>
           </div>
         </header>
-        <main className="container mx-auto px-6 py-20">
+        <main className="container mx-auto px-4 sm:px-6 py-12 sm:py-20">
           <div className="mx-auto max-w-lg text-center">
-            <h2 className="mb-6 text-5xl font-light tracking-tight text-black leading-tight">
+            <h2 className="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-black leading-tight">
               Welcome to Tattoo Discovery
             </h2>
-            <p className="mb-12 text-base text-black/60 leading-relaxed tracking-wide">
+            <p className="mb-8 sm:mb-12 text-sm sm:text-base text-black/60 leading-relaxed tracking-wide px-4">
               Sign in to explore curated tattoos from Dutch artists and discover your perfect match.
             </p>
             <button
               onClick={() => setShowAuthModal(true)}
-              className="rounded-full bg-black px-8 py-4 text-sm font-medium text-white transition-all hover:bg-black/90 tracking-wide uppercase letter-spacing-wider"
+              className="rounded-full bg-black px-6 sm:px-8 py-3 sm:py-4 text-xs sm:text-sm font-medium text-white transition-all hover:bg-black/90 active:bg-black/80 tracking-wide uppercase min-h-[44px] touch-manipulation"
             >
               Get Started
             </button>
@@ -58,10 +58,10 @@ export default function Home() {
     <div className="min-h-screen bg-white">
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-black/10 bg-white/95 backdrop-blur-sm">
-        <div className="container mx-auto px-6 py-6">
-          <div className="flex items-center justify-between">
+        <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h1 className="text-xl font-light tracking-tight text-black uppercase tracking-wider">
+              <h1 className="text-lg sm:text-xl font-light tracking-tight text-black uppercase tracking-wider">
                 Tattoo Discovery
               </h1>
               {user.displayName && (
@@ -70,11 +70,11 @@ export default function Home() {
                 </p>
               )}
             </div>
-            <div className="flex items-center gap-6">
-              <nav className="flex gap-1">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
+              <nav className="flex gap-1 border-b border-black/10 sm:border-0 pb-2 sm:pb-0">
                 <button
                   onClick={() => setActiveTab('gallery')}
-                  className={`px-4 py-2 text-xs font-medium transition-all uppercase tracking-wider ${
+                  className={`px-3 sm:px-4 py-2 text-xs font-medium transition-all uppercase tracking-wider min-h-[44px] ${
                     activeTab === 'gallery'
                       ? 'text-black border-b-2 border-black'
                       : 'text-black/40 hover:text-black'
@@ -84,7 +84,7 @@ export default function Home() {
                 </button>
                 <button
                   onClick={() => setActiveTab('top-artists')}
-                  className={`px-4 py-2 text-xs font-medium transition-all uppercase tracking-wider ${
+                  className={`px-3 sm:px-4 py-2 text-xs font-medium transition-all uppercase tracking-wider min-h-[44px] ${
                     activeTab === 'top-artists'
                       ? 'text-black border-b-2 border-black'
                       : 'text-black/40 hover:text-black'
@@ -93,25 +93,27 @@ export default function Home() {
                   Top 5 Artists
                 </button>
               </nav>
-              <Link
-                href="/studio"
-                className="text-xs text-black/40 hover:text-black transition-colors uppercase tracking-wider"
-              >
-                For artists
-              </Link>
-              <button
-                onClick={signOut}
-                className="rounded-full border border-black px-4 py-2 text-xs font-medium text-black transition-all hover:bg-black hover:text-white uppercase tracking-wider"
-              >
-                Sign Out
-              </button>
+              <div className="flex items-center gap-3 sm:gap-6">
+                <Link
+                  href="/studio"
+                  className="text-xs text-black/40 hover:text-black transition-colors uppercase tracking-wider min-h-[44px] flex items-center"
+                >
+                  For artists
+                </Link>
+                <button
+                  onClick={signOut}
+                  className="rounded-full border border-black px-4 py-2.5 text-xs font-medium text-black transition-all hover:bg-black hover:text-white active:bg-black/90 active:text-white uppercase tracking-wider min-h-[44px] touch-manipulation"
+                >
+                  Sign Out
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-6 py-16">
+      <main className="container mx-auto px-4 sm:px-6 py-8 sm:py-16">
         {activeTab === 'gallery' ? (
           <Gallery />
         ) : (
@@ -123,7 +125,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="border-t border-black/10 bg-white">
-        <div className="container mx-auto px-6 py-12 text-center">
+        <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12 text-center">
           <p className="text-xs text-black/40 uppercase tracking-wider">
             Discover tattoo artists in the Netherlands
           </p>

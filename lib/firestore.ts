@@ -10,12 +10,13 @@ import {
   serverTimestamp 
 } from 'firebase/firestore';
 import { db } from './firebase';
-import { Artist, Tattoo, UserLike } from '@/types';
+import { Artist, Tattoo, UserLike, Inquiry } from '@/types';
 
 // Collection names
 const ARTISTS_COLLECTION = 'artists';
 const TATTOOS_COLLECTION = 'tattoos';
 const LIKES_COLLECTION = 'likes';
+const INQUIRIES_COLLECTION = 'inquiries';
 
 // Get all artists
 export async function getArtists(): Promise<Artist[]> {
@@ -85,6 +86,25 @@ export async function toggleLike(userId: string, tattooId: string): Promise<bool
 export async function isTattooLiked(userId: string, tattooId: string): Promise<boolean> {
   const likes = await getUserLikes(userId);
   return likes.some(like => like.tattooId === tattooId);
+}
+
+// Create a new inquiry
+export async function createInquiry(inquiry: Omit<Inquiry, 'id' | 'createdAt' | 'updatedAt'>): Promise<string> {
+  const docRef = doc(collection(db, INQUIRIES_COLLECTION));
+  await setDoc(docRef, {
+    ...inquiry,
+    status: 'pending',
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp()
+  });
+  return docRef.id;
+}
+
+// Get inquiries by artist (for artist dashboard)
+export async function getInquiriesByArtist(artistId: string): Promise<Inquiry[]> {
+  const q = query(collection(db, INQUIRIES_COLLECTION), where('artistId', '==', artistId));
+  const snapshot = await getDocs(q);
+  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Inquiry));
 }
 
 

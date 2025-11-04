@@ -37,3 +37,19 @@ export interface ArtistScore {
   likedTattoos: number;
 }
 
+export interface Inquiry {
+  id?: string;
+  artistId: string;
+  userId?: string; // Firebase Auth user ID if logged in
+  customerEmail: string;
+  customerName?: string;
+  preferredDate?: string;
+  preferredTime?: string;
+  bodyPart?: string;
+  budget?: number;
+  message?: string;
+  status?: 'pending' | 'responded' | 'cancelled';
+  createdAt?: number;
+  updatedAt?: number;
+}
+

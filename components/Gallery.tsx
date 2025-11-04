@@ -106,6 +106,7 @@ export function Gallery({ onRequireAuth }: GalleryProps) {
                 tattoo={tattoo}
                 artistName={artist?.name}
                 artistLocation={artist?.location}
+                artistId={artist?.id}
                 onRequireAuth={onRequireAuth}
               />
             );

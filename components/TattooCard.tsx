@@ -6,15 +6,17 @@ import { toggleLike, isTattooLiked } from '@/lib/firestore';
 import { getUserId } from '@/lib/recommendations';
 import { useAuth } from '@/contexts/AuthContext';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface TattooCardProps {
   tattoo: Tattoo;
   artistName?: string;
   artistLocation?: string;
+  artistId?: string;
   onRequireAuth?: () => void;
 }
 
-export function TattooCard({ tattoo, artistName, artistLocation, onRequireAuth }: TattooCardProps) {
+export function TattooCard({ tattoo, artistName, artistLocation, artistId, onRequireAuth }: TattooCardProps) {
   const { user } = useAuth();
   const [isLiked, setIsLiked] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -93,9 +95,19 @@ export function TattooCard({ tattoo, artistName, artistLocation, onRequireAuth }
           
           {/* Artist name with intentional hierarchy */}
           {artistName && (
-            <p className="text-xs font-medium text-white/90 uppercase tracking-[0.1em]">
-              {artistName}
-            </p>
+            artistId ? (
+              <Link
+                href={`/artist/${artistId}`}
+                onClick={(e) => e.stopPropagation()}
+                className="text-xs font-medium text-white/90 uppercase tracking-[0.1em] hover:text-white transition-colors duration-200 inline-block"
+              >
+                {artistName}
+              </Link>
+            ) : (
+              <p className="text-xs font-medium text-white/90 uppercase tracking-[0.1em]">
+                {artistName}
+              </p>
+            )
           )}
           
           {/* Price and Location with refined spacing */}

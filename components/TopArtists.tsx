@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { Artist, ArtistScore } from '@/types';
 import { getArtist } from '@/lib/firestore';
 import { getTop5Artists, getUserId } from '@/lib/recommendations';
+import { InquiryModal } from './InquiryModal';
+import Link from 'next/link';
 
 interface TopArtistsProps {
   onRefresh?: () => void;
@@ -128,10 +130,17 @@ function ContactModal({ artist, onClose }: ContactModalProps) {
           </div>
         )}
 
-        <div className="mt-10 pt-8 border-t border-black/10">
+        <div className="mt-10 pt-8 border-t border-black/10 flex flex-col sm:flex-row gap-3">
+          <Link
+            href={`/artist/${artist.id}`}
+            onClick={onClose}
+            className="flex-1 rounded-full bg-black px-6 py-3.5 text-xs font-medium text-white transition-all duration-200 hover:bg-black/90 active:bg-black/95 uppercase tracking-[0.1em] min-h-[44px] touch-manipulation text-center"
+          >
+            View Profile
+          </Link>
           <button
             onClick={onClose}
-            className="w-full rounded-full border border-black px-6 py-3.5 text-xs font-medium text-black transition-all duration-200 hover:bg-black hover:text-white active:bg-black/95 uppercase tracking-[0.1em] min-h-[44px] touch-manipulation"
+            className="flex-1 rounded-full border border-black px-6 py-3.5 text-xs font-medium text-black transition-all duration-200 hover:bg-black hover:text-white active:bg-black/95 uppercase tracking-[0.1em] min-h-[44px] touch-manipulation"
           >
             Close
           </button>
@@ -147,6 +156,7 @@ export function TopArtists({ onRefresh }: TopArtistsProps) {
   const [loading, setLoading] = useState(true);
   const [showResults, setShowResults] = useState(false);
   const [contactModalArtist, setContactModalArtist] = useState<Artist | null>(null);
+  const [inquiryModalArtist, setInquiryModalArtist] = useState<Artist | null>(null);
 
   const loadTopArtists = async () => {
     try {
@@ -250,9 +260,12 @@ export function TopArtists({ onRefresh }: TopArtistsProps) {
               
               <div className="flex-1 space-y-3">
                 <div>
-                  <h3 className="mb-1 text-xl sm:text-2xl font-light tracking-tight text-black">
+                  <Link
+                    href={`/artist/${artist.id}`}
+                    className="mb-1 text-xl sm:text-2xl font-light tracking-tight text-black hover:text-black/60 transition-colors duration-200 inline-block"
+                  >
                     {artist.name}
-                  </h3>
+                  </Link>
                   <p className="text-xs text-black/40 uppercase tracking-[0.1em]">
                     {artist.location}
                   </p>
@@ -289,12 +302,18 @@ export function TopArtists({ onRefresh }: TopArtistsProps) {
                 </div>
               </div>
 
-              <div className="flex-shrink-0">
+              <div className="flex-shrink-0 flex flex-col sm:flex-row gap-3">
                 <button
                   onClick={() => setContactModalArtist(artist)}
-                  className="rounded-full border border-black px-6 py-2.5 text-xs font-medium text-black transition-all duration-200 hover:bg-black hover:text-white active:bg-black/95 uppercase tracking-[0.1em] min-h-[44px] touch-manipulation whitespace-nowrap"
+                  className="rounded-full border border-black px-5 py-2.5 text-xs font-medium text-black transition-all duration-200 hover:bg-black hover:text-white active:bg-black/95 uppercase tracking-[0.1em] min-h-[44px] touch-manipulation whitespace-nowrap"
                 >
                   Contact
+                </button>
+                <button
+                  onClick={() => setInquiryModalArtist(artist)}
+                  className="rounded-full bg-black px-5 py-2.5 text-xs font-medium text-white transition-all duration-200 hover:bg-black/90 active:bg-black/95 uppercase tracking-[0.1em] min-h-[44px] touch-manipulation whitespace-nowrap"
+                >
+                  Request Consultation
                 </button>
               </div>
             </div>
@@ -306,6 +325,13 @@ export function TopArtists({ onRefresh }: TopArtistsProps) {
         <ContactModal
           artist={contactModalArtist}
           onClose={() => setContactModalArtist(null)}
+        />
+      )}
+
+      {inquiryModalArtist && (
+        <InquiryModal
+          artist={inquiryModalArtist}
+          onClose={() => setInquiryModalArtist(null)}
         />
       )}
     </div>

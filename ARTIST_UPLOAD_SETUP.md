@@ -116,3 +116,4 @@ The `firestore.rules` file has been updated to allow:
 - Check file type (must be an image)
 - Make sure Storage is enabled in Firebase Console
 
+

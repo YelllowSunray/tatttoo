@@ -87,3 +87,4 @@ export async function isTattooLiked(userId: string, tattooId: string): Promise<b
   return likes.some(like => like.tattooId === tattooId);
 }
 
+

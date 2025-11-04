@@ -2,7 +2,7 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #000000;
 }
 
 @theme inline {
@@ -14,8 +14,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #000000;
   }
 }
 
@@ -23,29 +23,33 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-feature-settings: "kern" 1, "liga" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Smooth scrolling */
+/* Smooth scrolling with intentional easing */
 html {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar for webkit browsers */
+/* Refined scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #fafafa;
+  background: #ffffff;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d4d4d8;
-  border-radius: 4px;
+  background: #000000;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a1a1aa;
+  background: #000000;
 }
 
 /* Touch-friendly improvements */
@@ -54,10 +58,37 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Prevent text selection on buttons */
-button {
+/* Prevent text selection on interactive elements */
+button,
+a {
   -webkit-tap-highlight-color: transparent;
+}
+
+button {
   user-select: none;
+}
+
+/* Intentional focus states */
+*:focus-visible {
+  outline: 1px solid black;
+  outline-offset: 2px;
+}
+
+/* Refined image loading */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Better text selection */
+::selection {
+  background: #000000;
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background: #000000;
+  color: #ffffff;
 }
 
 /* Mobile viewport fixes */
@@ -65,4 +96,10 @@ button {
   .min-h-screen {
     min-height: -webkit-fill-available;
   }
+}
+
+/* Intentional transitions */
+.transition-intentional {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
 }

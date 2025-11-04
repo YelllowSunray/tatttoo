@@ -46,3 +46,4 @@ export function getTattooImagePath(userId: string, tattooId: string, fileName: s
   return `tattoos/${userId}/${tattooId}_${timestamp}.${extension}`;
 }
 
+

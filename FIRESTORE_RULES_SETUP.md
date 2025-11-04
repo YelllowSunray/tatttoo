@@ -46,3 +46,4 @@ If you still get permission errors after updating rules:
 3. Hard refresh your browser (Ctrl+Shift+R or Cmd+Shift+R)
 4. Check that Email/Password authentication is enabled in Firebase Console
 
+

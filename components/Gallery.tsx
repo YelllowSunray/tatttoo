@@ -83,30 +83,34 @@ export function Gallery({ onRequireAuth }: GalleryProps) {
   }
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
-      <div className="mb-8 sm:mb-16 text-center">
-        <h1 className="mb-3 sm:mb-4 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-black leading-tight px-4">
-          Discover Dutch Tattoo Artistry
-        </h1>
-        <p className="mx-auto max-w-xl text-xs sm:text-sm text-black/60 leading-relaxed tracking-wide px-4">
-          Explore curated tattoos from talented artists across the Netherlands. 
-          Like the ones that resonate with you, and we'll find your perfect match.
-        </p>
-      </div>
+    <div className="container mx-auto px-4 sm:px-6">
+      <div className="mx-auto max-w-7xl">
+        {/* Intentional header with refined spacing */}
+        <div className="mb-12 sm:mb-20 md:mb-24 text-center">
+          <h1 className="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-[-0.02em] text-black leading-[1.1] px-4">
+            Discover Dutch Tattoo Artistry
+          </h1>
+          <p className="mx-auto max-w-2xl text-sm sm:text-base text-black/50 leading-relaxed tracking-wide px-4">
+            Explore curated tattoos from talented artists across the Netherlands. 
+            Like the ones that resonate with you, and we'll find your perfect match.
+          </p>
+        </div>
 
-      <div className="grid grid-cols-1 gap-2 sm:gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {tattoos.map((tattoo) => {
-          const artist = artists.get(tattoo.artistId);
-          return (
-            <TattooCard
-              key={tattoo.id}
-              tattoo={tattoo}
-              artistName={artist?.name}
-              artistLocation={artist?.location}
-              onRequireAuth={onRequireAuth}
-            />
-          );
-        })}
+        {/* Intentional grid with refined spacing */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-0.5 sm:gap-1">
+          {tattoos.map((tattoo) => {
+            const artist = artists.get(tattoo.artistId);
+            return (
+              <TattooCard
+                key={tattoo.id}
+                tattoo={tattoo}
+                artistName={artist?.name}
+                artistLocation={artist?.location}
+                onRequireAuth={onRequireAuth}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );

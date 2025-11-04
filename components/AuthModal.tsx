@@ -65,14 +65,14 @@ export function AuthModal({ onClose }: AuthModalProps) {
             </svg>
           </button>
         )}
-        <h2 className="mb-6 sm:mb-8 text-2xl sm:text-3xl font-light tracking-tight text-black uppercase tracking-wider">
+        <h2 className="mb-8 sm:mb-10 text-2xl sm:text-3xl md:text-4xl font-light tracking-[-0.02em] text-black">
           {isSignUp ? 'Create Account' : 'Welcome Back'}
         </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-8">
           {isSignUp && (
             <div>
-              <label htmlFor="displayName" className="mb-2 block text-xs font-medium text-black/60 uppercase tracking-wider">
+              <label htmlFor="displayName" className="mb-3 block text-xs font-medium text-black/50 uppercase tracking-[0.1em]">
                 Name
               </label>
               <input
@@ -81,14 +81,14 @@ export function AuthModal({ onClose }: AuthModalProps) {
                 autoComplete="name"
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
-                className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-base text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
+                className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-base text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors duration-200"
                 placeholder="Your name"
               />
             </div>
           )}
 
           <div>
-            <label htmlFor="email" className="mb-2 block text-xs font-medium text-black/60 uppercase tracking-wider">
+            <label htmlFor="email" className="mb-3 block text-xs font-medium text-black/50 uppercase tracking-[0.1em]">
               Email
             </label>
               <input
@@ -99,13 +99,13 @@ export function AuthModal({ onClose }: AuthModalProps) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-base text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
+                className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-base text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors duration-200"
                 placeholder="your@email.com"
               />
           </div>
 
           <div>
-            <label htmlFor="password" className="mb-2 block text-xs font-medium text-black/60 uppercase tracking-wider">
+            <label htmlFor="password" className="mb-3 block text-xs font-medium text-black/50 uppercase tracking-[0.1em]">
               Password
             </label>
               <input
@@ -116,7 +116,7 @@ export function AuthModal({ onClose }: AuthModalProps) {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={6}
-                className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-base text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors"
+                className="w-full border-b border-black/20 bg-transparent px-0 py-3 text-base text-black placeholder-black/30 focus:border-black focus:outline-none transition-colors duration-200"
                 placeholder="••••••••"
               />
             {isSignUp && (
@@ -133,19 +133,19 @@ export function AuthModal({ onClose }: AuthModalProps) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-full bg-black px-6 py-3 sm:py-4 text-xs font-medium text-white transition-all hover:bg-black/90 active:bg-black/80 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider min-h-[44px] touch-manipulation"
+            className="w-full rounded-full bg-black px-6 py-3.5 text-xs font-medium text-white transition-all duration-200 hover:bg-black/90 active:bg-black/95 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-[0.1em] min-h-[44px] touch-manipulation"
           >
             {loading ? 'Please wait...' : isSignUp ? 'Sign Up' : 'Sign In'}
           </button>
         </form>
 
-        <div className="mt-8 text-center">
+        <div className="mt-10 text-center">
           <button
             onClick={() => {
               setIsSignUp(!isSignUp);
               setError('');
             }}
-            className="text-xs text-black/50 hover:text-black transition-colors uppercase tracking-wider underline underline-offset-4"
+            className="text-xs text-black/40 hover:text-black transition-colors duration-200 uppercase tracking-[0.1em] underline underline-offset-4"
           >
             {isSignUp ? (
               <>Already have an account? <span className="font-medium">Sign in</span></>

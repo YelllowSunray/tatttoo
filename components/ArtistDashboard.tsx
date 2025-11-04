@@ -244,7 +244,7 @@ export function ArtistDashboard() {
             disabled={loading}
             className="w-full rounded-full bg-black px-6 py-3 sm:py-4 text-xs font-medium text-white transition-all hover:bg-black/90 active:bg-black/80 disabled:opacity-50 uppercase tracking-wider min-h-[44px] touch-manipulation"
           >
-            {loading ? 'Saving...' : 'Create Profile'}
+            {loading ? 'Saving...' : artist ? 'Edit Profile' : 'Create Profile'}
           </button>
         </form>
       </div>

@@ -5,7 +5,11 @@ import { Tattoo, Artist } from '@/types';
 import { getTattoos, getArtists } from '@/lib/firestore';
 import { TattooCard } from './TattooCard';
 
-export function Gallery() {
+interface GalleryProps {
+  onRequireAuth?: () => void;
+}
+
+export function Gallery({ onRequireAuth }: GalleryProps) {
   const [tattoos, setTattoos] = useState<Tattoo[]>([]);
   const [artists, setArtists] = useState<Map<string, Artist>>(new Map());
   const [loading, setLoading] = useState(true);
@@ -99,6 +103,7 @@ export function Gallery() {
               tattoo={tattoo}
               artistName={artist?.name}
               artistLocation={artist?.location}
+              onRequireAuth={onRequireAuth}
             />
           );
         })}

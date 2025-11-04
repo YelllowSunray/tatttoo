@@ -4,15 +4,18 @@ import { useState, useEffect } from 'react';
 import { Tattoo } from '@/types';
 import { toggleLike, isTattooLiked } from '@/lib/firestore';
 import { getUserId } from '@/lib/recommendations';
+import { useAuth } from '@/contexts/AuthContext';
 import Image from 'next/image';
 
 interface TattooCardProps {
   tattoo: Tattoo;
   artistName?: string;
   artistLocation?: string;
+  onRequireAuth?: () => void;
 }
 
-export function TattooCard({ tattoo, artistName, artistLocation }: TattooCardProps) {
+export function TattooCard({ tattoo, artistName, artistLocation, onRequireAuth }: TattooCardProps) {
+  const { user } = useAuth();
   const [isLiked, setIsLiked] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isToggling, setIsToggling] = useState(false);
@@ -20,16 +23,31 @@ export function TattooCard({ tattoo, artistName, artistLocation }: TattooCardPro
 
   useEffect(() => {
     const checkLiked = async () => {
+      // Only check likes if user is authenticated
+      if (!user) {
+        setIsLiked(false);
+        setIsLoading(false);
+        return;
+      }
       const userId = getUserId();
       const liked = await isTattooLiked(userId, tattoo.id);
       setIsLiked(liked);
       setIsLoading(false);
     };
     checkLiked();
-  }, [tattoo.id]);
+  }, [tattoo.id, user]);
 
   const handleLike = async () => {
     if (isToggling) return;
+    
+    // If user is not authenticated, prompt them to sign in
+    if (!user) {
+      if (onRequireAuth) {
+        onRequireAuth();
+      }
+      return;
+    }
+    
     setIsToggling(true);
     const userId = getUserId();
     const newLikedState = await toggleLike(userId, tattoo.id);
@@ -126,7 +144,7 @@ export function TattooCard({ tattoo, artistName, artistLocation }: TattooCardPro
                 ? 'bg-white text-black hover:bg-white/90 active:bg-white/80'
                 : 'bg-white/10 backdrop-blur-sm text-white border border-white/20 hover:bg-white/20 active:bg-white/30'
             } ${isToggling ? 'opacity-50 cursor-not-allowed' : ''}`}
-            aria-label={isLiked ? 'Unlike this tattoo' : 'Like this tattoo'}
+            aria-label={isLiked ? 'Unlike this tattoo' : user ? 'Like this tattoo' : 'Sign in to like this tattoo'}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -138,13 +156,13 @@ export function TattooCard({ tattoo, artistName, artistLocation }: TattooCardPro
             >
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
             </svg>
-            {isLiked ? 'Liked' : 'Like'}
+            {isLiked ? 'Liked' : user ? 'Like' : 'Sign in to Like'}
           </button>
         </div>
       </div>
 
       {/* Like indicator when liked but not hovering - clickable */}
-      {isLiked && (
+      {isLiked && user && (
         <button
           onClick={(e) => {
             e.stopPropagation();

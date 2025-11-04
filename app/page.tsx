@@ -23,36 +23,7 @@ export default function Home() {
     );
   }
 
-  if (!user) {
-    return (
-      <div className="min-h-screen bg-white">
-        <header className="border-b border-black/10 bg-white">
-          <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
-            <h1 className="text-xl sm:text-2xl font-light tracking-tight text-black">
-              Tattoo Discovery
-            </h1>
-          </div>
-        </header>
-        <main className="container mx-auto px-4 sm:px-6 py-12 sm:py-20">
-          <div className="mx-auto max-w-lg text-center">
-            <h2 className="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-black leading-tight">
-              Welcome to Tattoo Discovery
-            </h2>
-            <p className="mb-8 sm:mb-12 text-sm sm:text-base text-black/60 leading-relaxed tracking-wide px-4">
-              Sign in to explore curated tattoos from Dutch artists and discover your perfect match.
-            </p>
-            <button
-              onClick={() => setShowAuthModal(true)}
-              className="rounded-full bg-black px-6 sm:px-8 py-3 sm:py-4 text-xs sm:text-sm font-medium text-white transition-all hover:bg-black/90 active:bg-black/80 tracking-wide uppercase min-h-[44px] touch-manipulation"
-            >
-              Get Started
-            </button>
-          </div>
-        </main>
-        {showAuthModal && <AuthModal onClose={() => setShowAuthModal(false)} />}
-      </div>
-    );
-  }
+  // Show gallery for unauthenticated users, but with limited functionality
 
   return (
     <div className="min-h-screen bg-white">
@@ -64,35 +35,39 @@ export default function Home() {
               <h1 className="text-lg sm:text-xl font-light tracking-tight text-black uppercase tracking-wider">
                 Tattoo Discovery
               </h1>
-              {user.displayName && (
+              {user?.displayName && (
                 <p className="mt-1 text-xs text-black/50 tracking-wide">
                   {user.displayName}
                 </p>
               )}
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
-              <nav className="flex gap-1 border-b border-black/10 sm:border-0 pb-2 sm:pb-0">
-                <button
-                  onClick={() => setActiveTab('gallery')}
-                  className={`px-3 sm:px-4 py-2 text-xs font-medium transition-all uppercase tracking-wider min-h-[44px] ${
-                    activeTab === 'gallery'
-                      ? 'text-black border-b-2 border-black'
-                      : 'text-black/40 hover:text-black'
-                  }`}
-                >
-                  Gallery
-                </button>
-                <button
-                  onClick={() => setActiveTab('top-artists')}
-                  className={`px-3 sm:px-4 py-2 text-xs font-medium transition-all uppercase tracking-wider min-h-[44px] ${
-                    activeTab === 'top-artists'
-                      ? 'text-black border-b-2 border-black'
-                      : 'text-black/40 hover:text-black'
-                  }`}
-                >
-                  Top 5 Artists
-                </button>
-              </nav>
+              {user && (
+                <>
+                  <nav className="flex gap-1 border-b border-black/10 sm:border-0 pb-2 sm:pb-0">
+                    <button
+                      onClick={() => setActiveTab('gallery')}
+                      className={`px-3 sm:px-4 py-2 text-xs font-medium transition-all uppercase tracking-wider min-h-[44px] ${
+                        activeTab === 'gallery'
+                          ? 'text-black border-b-2 border-black'
+                          : 'text-black/40 hover:text-black'
+                      }`}
+                    >
+                      Gallery
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('top-artists')}
+                      className={`px-3 sm:px-4 py-2 text-xs font-medium transition-all uppercase tracking-wider min-h-[44px] ${
+                        activeTab === 'top-artists'
+                          ? 'text-black border-b-2 border-black'
+                          : 'text-black/40 hover:text-black'
+                      }`}
+                    >
+                      Top 5 Artists
+                    </button>
+                  </nav>
+                </>
+              )}
               <div className="flex items-center gap-3 sm:gap-6">
                 <Link
                   href="/studio"
@@ -100,12 +75,21 @@ export default function Home() {
                 >
                   For artists
                 </Link>
-                <button
-                  onClick={signOut}
-                  className="rounded-full border border-black px-4 py-2.5 text-xs font-medium text-black transition-all hover:bg-black hover:text-white active:bg-black/90 active:text-white uppercase tracking-wider min-h-[44px] touch-manipulation"
-                >
-                  Sign Out
-                </button>
+                {user ? (
+                  <button
+                    onClick={signOut}
+                    className="rounded-full border border-black px-4 py-2.5 text-xs font-medium text-black transition-all hover:bg-black hover:text-white active:bg-black/90 active:text-white uppercase tracking-wider min-h-[44px] touch-manipulation"
+                  >
+                    Sign Out
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setShowAuthModal(true)}
+                    className="rounded-full bg-black px-4 py-2.5 text-xs font-medium text-white transition-all hover:bg-black/90 active:bg-black/80 uppercase tracking-wider min-h-[44px] touch-manipulation"
+                  >
+                    Sign In
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -114,12 +98,12 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 sm:px-6 py-8 sm:py-16">
-        {activeTab === 'gallery' ? (
-          <Gallery />
-        ) : (
+        {user && activeTab === 'top-artists' ? (
           <div className="mx-auto max-w-4xl">
             <TopArtists />
           </div>
+        ) : (
+          <Gallery onRequireAuth={() => setShowAuthModal(true)} />
         )}
       </main>
 
@@ -131,6 +115,7 @@ export default function Home() {
           </p>
         </div>
       </footer>
+      {showAuthModal && <AuthModal onClose={() => setShowAuthModal(false)} />}
     </div>
   );
 }

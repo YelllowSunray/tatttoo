@@ -4,7 +4,7 @@ service cloud.firestore {
     
     // Artists collection
     match /artists/{artistId} {
-      allow read: if request.auth != null; // Authenticated users can read
+      allow read: if true; // Public read access for all users
       // Users can create their own artist profile (userId must match their auth uid)
       allow create: if request.auth != null && 
                         request.resource.data.userId == request.auth.uid;
@@ -16,7 +16,7 @@ service cloud.firestore {
     
     // Tattoos collection
     match /tattoos/{tattooId} {
-      allow read: if request.auth != null; // Authenticated users can read
+      allow read: if true; // Public read access for all users
       // Artists can create tattoos - verify they own the artist profile
       allow create: if request.auth != null && 
                        request.resource.data.artistId != null &&
